@@ -38,11 +38,12 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 //	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
-//	// 유효성 검사
-//	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	// 유효성 검사
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 //
 //	// 스프링 시큐리티
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -51,13 +52,13 @@ dependencies {
 //	testImplementation 'org.springframework.security:spring-security-test'
 
 
-//	// jwts
-//	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
-//	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
-//	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+	// jwts
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
 	//gson - json 메시지를 다루기 위한 라이브러리
-//	implementation 'com.google.code.gson:gson'
+	implementation 'com.google.code.gson:gson'
 
 
 }
