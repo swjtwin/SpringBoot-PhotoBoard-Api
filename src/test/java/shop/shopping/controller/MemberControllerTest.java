@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import shop.shopping.dto.MemberJoinRequestDto;
 import shop.shopping.service.MemberService;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -58,6 +60,9 @@ public class MemberControllerTest {
         String password = "1q2w3e4r";
         String nickname = "sarangmother";
         String gender   = "men";
+
+        when(memberService.join(any(),any(),any(),any()))
+                .thenThrow(new RuntimeException("해당 유저아이디 는 중복입니다"));
 
         mockMvc.perform(post("/api/v1/members/join")
                         .contentType(MediaType.APPLICATION_JSON)

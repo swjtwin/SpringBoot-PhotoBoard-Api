@@ -20,6 +20,7 @@ public class MemberController {
 
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody MemberJoinRequestDto dto) {
+        memberService.join(dto.getUsername(), dto.getPassword(), dto.getNickname(), dto.getGender());
         return ResponseEntity.ok().body("회원가입 성공 했습니다.");
     }
 }

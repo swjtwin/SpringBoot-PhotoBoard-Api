@@ -19,7 +19,7 @@ public class Member {
     private Long id;
 
     @Column
-    private String userName;
+    private String username;
 
     private String password;
 

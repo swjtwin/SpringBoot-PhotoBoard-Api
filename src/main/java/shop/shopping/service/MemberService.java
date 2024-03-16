@@ -12,18 +12,18 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public String join(String userName, String password , String nickname , String gender) {
+    public String join(String username, String password , String nickname , String gender) {
 
         // userName 중복 check
-        memberRepository.findByUsername(userName)
+        memberRepository.findByUsername(username)
                 .ifPresent(member -> {
-                    throw new RuntimeException(userName + "는 이미 있습니다.");
+                    throw new RuntimeException(username + "는 이미 있습니다.");
                 });
 
 
         // 저장
         Member member = Member.builder()
-                .userName(userName)
+                .username(username)
                 .password(password)
                 .nickname(nickname)
                 .gender(gender)

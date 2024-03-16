@@ -13,6 +13,12 @@ java {
 
 configurations {
 	compileOnly {
+		// annotationProcessor 구성에 추가된 의존성들이
+		// compileOnly 구성에도 적용됨. 예를들면 dependencies
+		// 부분의 annotationProcessor 'org.projectlombok:lombok'
+		// 롬복은 다양한 어노테이션을 갖고 있는 이 어노테이션들은
+		// 컴파일 타임에 처리되어 추가적인 코드를 생성하거나
+		// 기존 코드를 변경하는 작업을 수행하게 됨.
 		extendsFrom annotationProcessor
 	}
 }
@@ -22,20 +28,35 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
+	// Spring Boot 에서 웹 MVC 패턴 개발 관련 의존성
+	// 1. 내장 톰캣 제공
+	// 2. Spring MVC 웹 앱 위한 framework 제공
+	//   Controller, Service, Repository 등의 구성 요소를 쉽게 개발
+	//   @RestController, @RequestMapping 등의 Annotation 사용
+	// 3. Jackson : JSON To Java 객체, 자바 객체 To Json 변환
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	// thymeleaf template layout 관련 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// 스프링 data jpa 관련 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+	// mariadb driver
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
-	implementation 'org.jetbrains:annotations:24.0.0'
 
+	// 이건 뭐지
+//	implementation 'org.jetbrains:annotations:24.0.0'
+
+	// DevTools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+	// 롬복
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	// 스프링 테스트 관련
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 
