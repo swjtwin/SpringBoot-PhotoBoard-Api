@@ -3,7 +3,9 @@ package shop.shopping.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import shop.shopping.constant.ErrorCode;
 import shop.shopping.entity.Member;
+import shop.shopping.exception.AppException;
 import shop.shopping.repository.MemberRepository;
 
 @Service
@@ -17,7 +19,8 @@ public class MemberService {
         // userName 중복 check
         memberRepository.findByUsername(username)
                 .ifPresent(member -> {
-                    throw new RuntimeException(username + "는 이미 있습니다.");
+                    throw new AppException(ErrorCode.USERNAME_DUPLICATED, username + "는 이미 있습니다.");
+
                 });
 
 
