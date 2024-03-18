@@ -66,11 +66,11 @@ dependencies {
 	// 유효성 검사
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 //
-//	// 스프링 시큐리티
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
-//	// 타임리프에서 시큐리티 사용
-//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-//	testImplementation 'org.springframework.security:spring-security-test'
+	// 스프링 시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// 타임리프에서 시큐리티 사용
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	testImplementation 'org.springframework.security:spring-security-test'
 
 
 	// jwts

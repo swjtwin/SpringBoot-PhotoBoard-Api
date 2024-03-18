@@ -2,6 +2,7 @@ package shop.shopping.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import shop.shopping.constant.ErrorCode;
 import shop.shopping.entity.Member;
@@ -12,6 +13,7 @@ import shop.shopping.repository.MemberRepository;
 @RequiredArgsConstructor
 public class MemberService {
 
+    private final BCryptPasswordEncoder encoder;
     private final MemberRepository memberRepository;
 
     public String join(String username, String password , String nickname , String gender) {
@@ -27,7 +29,7 @@ public class MemberService {
         // 저장
         Member member = Member.builder()
                 .username(username)
-                .password(password)
+                .password(encoder.encode(password))
                 .nickname(nickname)
                 .gender(gender)
                 .build();

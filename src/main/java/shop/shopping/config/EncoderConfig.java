@@ -1,0 +1,19 @@
+package shop.shopping.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+/*
+EncoderConfig class 와 SecurityConfig class 랑은 꼭 별개로 해야 한다
+이유는 순환참조에서 에러가 날 수 가 있기 때문이다
+ */
+@Configuration
+public class EncoderConfig {
+
+    // 패스워드 암호화
+    @Bean
+    public BCryptPasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
