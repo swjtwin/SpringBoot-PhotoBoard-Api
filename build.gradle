@@ -70,6 +70,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	// 타임리프에서 시큐리티 사용
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	// 스프링 시큐리티 테스트
 	testImplementation 'org.springframework.security:spring-security-test'
 
 

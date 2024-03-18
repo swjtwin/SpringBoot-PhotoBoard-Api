@@ -14,7 +14,7 @@ public class SecurityConfig {
         return httpSecurity
                 .httpBasic().disable()
                 .csrf().disable() // 서버에 인증정보를 저장하지 않기에 csrf를 사용하지 않음 Cross Site Request Forgery
-                .cors().disable() //
+                .cors().disable() // STATELESS 라 cors는 disable
                 .authorizeHttpRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정
                 // antMatchers = 특정 리소스에 대해서 권한 설정
                 .antMatchers("/api/**").permitAll() // 설정한 리소스의 접근을 인증절차 없이 허용가능

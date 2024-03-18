@@ -2,6 +2,7 @@ package shop.shopping.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import shop.shopping.constant.ErrorCode;
@@ -37,5 +38,19 @@ public class MemberService {
         memberRepository.save(member);
 
         return "SUCESS";
+    }
+
+    public String login(String username , String password) {
+
+        // username 없음
+        Member selectedMember = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, username + "이 없습니다."));
+
+        // password 틀림
+        if (!encoder.matches(selectedMember.getPassword(), password)) { // encoder 매치했을때 비밀번호가 틀렸을시 AppException 처리
+            throw new AppException(ErrorCode.INVALID_PASSWORD , "패스워드를 잘못 입력 했습니다");
+        }
+
+        return "token 리턴";
     }
 }

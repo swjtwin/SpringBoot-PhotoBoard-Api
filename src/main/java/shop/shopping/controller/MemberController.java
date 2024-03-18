@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shop.shopping.dto.MemberJoinRequestDto;
+import shop.shopping.dto.MemberLoginRequestDto;
 import shop.shopping.service.MemberService;
 
 @RestController
@@ -22,5 +23,11 @@ public class MemberController {
     public ResponseEntity<String> join(@RequestBody MemberJoinRequestDto dto) {
         memberService.join(dto.getUsername(), dto.getPassword(), dto.getNickname(), dto.getGender());
         return ResponseEntity.ok().body("회원가입 성공 했습니다.");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody MemberLoginRequestDto dto) {
+        String token = memberService.login(dto.getUsername(), dto.getPassword());
+        return ResponseEntity.ok().body(token);
     }
 }
