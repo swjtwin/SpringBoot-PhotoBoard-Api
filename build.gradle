@@ -47,7 +47,7 @@ dependencies {
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
 
 	// 이건 뭐지
-//	implementation 'org.jetbrains:annotations:24.0.0'
+	implementation 'org.jetbrains:annotations:24.0.0'
 
 	// DevTools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -59,6 +59,8 @@ dependencies {
 	// 스프링 테스트 관련
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// SQL 로그 의존성
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 //	implementation 'org.springframework.boot:spring-boot-starter-websocket'
