@@ -1,14 +1,25 @@
 package shop.shopping.config;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import shop.shopping.jwt.JwtFilter;
+import shop.shopping.service.MemberService;
 
 @Configuration // Bean을 등록할 때 싱글톤(Singleton)이 되도록 보장 스프링 컨테이너에서 Bean을 관리할 수 있게 됨
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final MemberService memberService;
+
+    @Value("${jwt.token.key}")
+    private String secretKey;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -18,8 +29,8 @@ public class SecurityConfig {
                 .cors().disable() // STATELESS 라 cors는 disable
                 .authorizeHttpRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정
                 // antMatchers = 특정 리소스에 대해서 권한 설정
-                .antMatchers("api/v1/members/join" , "api/v1/members/login").permitAll() // 회원가입 , 로그인 인증절차 없이 허용가능
-//                .antMatchers(HttpMethod.POST,"api/v1/**").authenticated() // 위 두가지를 제외한 모든 포스트 요청은 인증필요
+                .antMatchers("/api/v1/members/join" , "/api/v1/members/login").permitAll() // 회원가입 , 로그인 인증절차 없이 허용가능
+                .antMatchers(HttpMethod.POST,"/api/v1/**").authenticated() // 위 두가지를 제외한 모든 포스트 요청은 인증필요
 
                 // 세션을 사용하지 않기 때문에 STATELESS로 설정
                 .and()
@@ -27,6 +38,7 @@ public class SecurityConfig {
                 // Session 기반의 인증기반을 사용하지 않고 추후 JWT를 이용하여서 인증 예정
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .addFilterBefore(new JwtFilter(memberService, secretKey), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
