@@ -70,7 +70,7 @@ public class MemberService {
         }
 
         String token = JwtTokenUtil.createToken(selectedMember.getUsername(), secretKey ,tokenValidTime);
-
+        log.info(token);
         // 앞에서 Exception 안났으면 토큰 발행
         return token;
     }

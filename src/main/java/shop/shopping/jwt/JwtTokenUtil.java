@@ -19,6 +19,12 @@ import java.util.Date;
 public class JwtTokenUtil {
 
 
+    // 형식 이 맞는지 확인
+    public static boolean isExpired(String token, String secretKey) {
+        return  Jwts.parser().setSigningKey(secretKey.getBytes()).parseClaimsJws(token)
+                .getBody().getExpiration().before(new Date());
+    }
+
     public static String createToken(String usernmae, String secretKey , long tokenValidTime) { // secretKey 서명
 
         // Claim = Jwt Token에 들어갈 정보
@@ -30,8 +36,8 @@ public class JwtTokenUtil {
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + tokenValidTime))
+                .setIssuedAt(new Date(System.currentTimeMillis())) // 시작시간
+                .setExpiration(new Date(System.currentTimeMillis() + tokenValidTime)) // 만료시간
                 .signWith(SignatureAlgorithm.HS256, secretKey) // 서명. 사용할 암호화 알고리즘과 signature 에 들어갈 secretKey 세팅
                 .compact()
                 ;
