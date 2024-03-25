@@ -1,41 +1,3 @@
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/
-
 
 ######## flutter 프로젝트를 cli로 생성했을때 생기는 ignore 구문 #########
 # Miscellaneous
@@ -152,8 +114,8 @@ pubspec.lock
 
 
 ##### Custom 추가구문 #####
-**/firebase_options.dart
+firebase_options.dart
 # Google API key and other resources
-**/GoogleService-Info.plist
-**/google-services.json
-**/ios/firebase_app_id_file.json
+GoogleService-Info.plist
+google-services.json
+ios/firebase_app_id_file.json
