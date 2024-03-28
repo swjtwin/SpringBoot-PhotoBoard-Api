@@ -3,10 +3,7 @@ package shop.shopping.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shop.shopping.dto.MemberJoinRequestDto;
 import shop.shopping.dto.MemberLoginRequestDto;
 import shop.shopping.service.MemberService;
@@ -30,4 +27,5 @@ public class MemberController {
         String token = memberService.login(dto.getUsername(), dto.getPassword());
         return ResponseEntity.ok().body(token);
     }
+
 }

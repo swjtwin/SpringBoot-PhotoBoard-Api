@@ -14,6 +14,7 @@ public class EncoderConfig {
     // 패스워드 암호화
     @Bean
     public BCryptPasswordEncoder encoder() {
+
         return new BCryptPasswordEncoder();
     }
 }

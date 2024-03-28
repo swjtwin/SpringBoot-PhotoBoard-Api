@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import shop.shopping.constant.ErrorCode;
+import shop.shopping.constant.Role;
 import shop.shopping.entity.Member;
 import shop.shopping.exception.AppException;
 import shop.shopping.jwt.JwtTokenUtil;
@@ -50,6 +51,7 @@ public class MemberService {
                 .password(encoder.encode(password))
                 .nickname(nickname)
                 .gender(gender)
+                .role(Role.USER)
                 .build();
 
         memberRepository.save(member);

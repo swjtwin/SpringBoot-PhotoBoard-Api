@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
+import shop.shopping.constant.Role;
 import shop.shopping.service.MemberService;
 
 import javax.servlet.Filter;
@@ -60,7 +61,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
         // username Token에서 꺼내기
-        String username = "";
+        String username = JwtTokenUtil.getUserName(token , secretKey);
+        log.info("username : {}" , username);
 
         // 권한 부여
         UsernamePasswordAuthenticationToken authenticationToken =

@@ -18,10 +18,18 @@ import java.util.Date;
  */
 public class JwtTokenUtil {
 
+    // username 가져오기
+    public static String getUserName(String token, String secretKey) {
+        return  Jwts.parser().setSigningKey(secretKey.getBytes()).parseClaimsJws(token)
+                .getBody().get("username", String.class);
+    }
 
     // 형식 이 맞는지 확인
     public static boolean isExpired(String token, String secretKey) {
-        return  Jwts.parser().setSigningKey(secretKey.getBytes()).parseClaimsJws(token)
+        return  Jwts
+                .parser()
+                .setSigningKey(secretKey.getBytes())
+                .parseClaimsJws(token)
                 .getBody().getExpiration().before(new Date());
     }
 
