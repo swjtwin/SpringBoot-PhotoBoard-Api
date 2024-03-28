@@ -6,6 +6,9 @@ import shop.shopping.entity.UploadImage;
 
 import java.time.LocalDateTime;
 
+/*
+게시판 데이터 Dto
+ */
 @Data
 @Builder
 @AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자를 생성
