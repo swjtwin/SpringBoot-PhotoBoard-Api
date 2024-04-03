@@ -1,6 +1,8 @@
+import 'package:photoapp/util/url_api.dart';
+
 class ImageModel {}
 
-final class MockData {
+final class MockData implements UrlObject {
   int userId;
   int id;
   String title;

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+
 // import 'package:photoapp/home/repositories/image_repository.dart';
 // import 'package:provider/provider.dart';
 
-// class RegistPage extends StatelessWidget {
-//   const RegistPage({super.key});
-//   @override
-//   State<RegistPage> createState() => _RegistPageState();
-// }
-
-class RegistPage extends StatelessWidget {
+class RegistPage extends StatefulWidget {
   const RegistPage({super.key});
+
+  @override
+  State<RegistPage> createState() => _RegistPageState();
+}
+
+class _RegistPageState extends State<RegistPage> {
+  String _selectGender = '';
   // bool isConfirmToast = false;
 
   @override
@@ -24,12 +26,38 @@ class RegistPage extends StatelessWidget {
         child: Column(
           children: [
             textInput(label: '아이디'),
-            textInput(label: '이름'),
+            textInput(label: '닉네임'),
+            Row(
+              children: [
+                Expanded(
+                  child: RadioListTile<String>(
+                    title: const Text('남자'),
+                    value: 'M',
+                    groupValue: _selectGender,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectGender = value!;
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: RadioListTile<String>(
+                    title: const Text('여자'),
+                    value: 'W',
+                    groupValue: _selectGender,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectGender = value!;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
             textInput(label: '비밀번호', isPw: true),
             textInput(label: '비밀번호 확인', isPw: true),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             SizedBox(
               width: 150,
               child: TextButton(

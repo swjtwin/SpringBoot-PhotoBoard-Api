@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photoapp/home/repositories/image_repository.dart';
 // import 'package:photoapp/home/repositories/image_repository.dart';
 // import 'package:photoapp/login/registpage.dart';
 // import 'package:provider/provider.dart';
@@ -120,9 +121,9 @@ final class _LoginPageState extends State<LoginPage> {
             ),
             ElevatedButton(
               onPressed: () async {
-                // final image = ImageRepository();
-                // var mocdata = await image.fetchData();
-                // print(mocdata.userId);
+                final image = ImageRepository();
+                var mocdata = await image.fetchData();
+                print(mocdata.title);
               },
               child: const Text('Test'),
             )
@@ -141,7 +142,7 @@ final class _LoginPageState extends State<LoginPage> {
     void Function(String v)? onChangeFunc,
   }) {
     // onChangeFunc가 null일 수 있기때문에 기본 값을 넣어준다.
-    void Function(String v) onChgFunc = onChangeFunc ?? (v) {};
+    Function(String v) onChgFunc = onChangeFunc ?? (v) {};
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

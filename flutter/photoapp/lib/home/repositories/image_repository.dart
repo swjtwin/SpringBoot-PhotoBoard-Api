@@ -1,15 +1,33 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:photoapp/home/model/image_model.dart';
-import 'package:http/http.dart' as http;
+import 'package:photoapp/util/url_api.dart';
 
 final class ImageRepository extends ChangeNotifier {
-  String _content = "기본값!!";
+  String _content = "";
   String get content => _content;
+  final UrlApi _urlApi = UrlApi();
 
   chgContent(String content) {
     _content = content;
     notifyListeners();
+  }
+
+  /// 로그인
+  Future<bool> login({
+    required String id,
+    required String password,
+  }) async {
+    String apiUrl = 'https://jsonplaceholder.typicode.com/todos/1';
+    final result = await _urlApi.post<MockData>(
+      url: apiUrl,
+      body: {
+        'username': id,
+        'password': password,
+      },
+      resultJsonFunc: (decodeData) => MockData.fromJson(decodeData),
+    );
+
+    return result.completed;
   }
 
   /// MockData fetchData
@@ -17,22 +35,9 @@ final class ImageRepository extends ChangeNotifier {
     // Define the API endpoint URL
     String apiUrl = 'https://jsonplaceholder.typicode.com/todos/1';
 
-    // Perform a GET request
-    try {
-      http.Response response = await http.get(Uri.parse(apiUrl));
-      debugPrint('진입');
-      // Check if the request was successful (status code 200)
-      if (response.statusCode == 200) {
-        // Return the response body as a string
-        Map<String, dynamic> decodeData = jsonDecode(response.body);
-        return MockData.fromJson(decodeData);
-      } else {
-        // Handle error response and return an error message
-        throw 'Failed to fetch data: ${response.statusCode}';
-      }
-    } catch (e) {
-      // Handle exceptions and return an error message
-      throw 'Exception occurred: ${e.toString()}';
-    }
+    return await _urlApi.get<MockData>(
+      url: apiUrl,
+      resultJsonFunc: (decodeData) => MockData.fromJson(decodeData),
+    );
   }
 }
