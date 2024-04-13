@@ -119,3 +119,6 @@ firebase_options.dart
 GoogleService-Info.plist
 google-services.json
 ios/firebase_app_id_file.json
+
+macos/Podfile
+macos/Podfile.lock

@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:photoapp/home/repositories/image_repository.dart';
 import 'package:provider/provider.dart';
-// import 'package:image_picker/image_picker.dart';
 
 class ImageCell extends StatelessWidget {
   const ImageCell({super.key});
-
-  // XFile? image;
 
   @override
   Widget build(BuildContext context) {
     // String content = widget.content;
 
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         children: [
           IconButton.outlined(
@@ -26,12 +23,22 @@ class ImageCell extends StatelessWidget {
             iconSize: 50.0,
             padding: const EdgeInsets.all(10.0),
           ),
-          TextField(
-            controller: TextEditingController(
-                text: Provider.of<ImageRepository>(context).content),
-            keyboardType: TextInputType.datetime,
-            decoration: const InputDecoration(
-              labelText: '날짜',
+          SizedBox(
+            // height: 30.0,
+            child: TextField(
+              controller: TextEditingController(
+                text: Provider.of<ImageRepository>(context).content,
+              ),
+              keyboardType: TextInputType.datetime,
+              decoration: const InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                floatingLabelAlignment: FloatingLabelAlignment.center,
+                labelText: '일자',
+                isDense: true,
+                labelStyle: TextStyle(
+                  fontSize: 15.0,
+                ),
+              ),
             ),
           ),
         ],
@@ -39,6 +46,7 @@ class ImageCell extends StatelessWidget {
     );
   }
 
+  /// Bottom Sheet
   _showBottomSheet(BuildContext context) {
     return showModalBottomSheet(
       context: context,

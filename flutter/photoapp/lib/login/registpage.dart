@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:photoapp/home/repositories/image_repository.dart';
+import 'package:provider/provider.dart';
 
 // import 'package:photoapp/home/repositories/image_repository.dart';
 // import 'package:provider/provider.dart';
@@ -61,10 +63,13 @@ class _RegistPageState extends State<RegistPage> {
             SizedBox(
               width: 150,
               child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/home');
-                  // Navigator.pushReplacementNamed(context, '/home');
-                  // passwordCheck('', '');
+                onPressed: () async {
+                  await context.read<ImageRepository>().registInfoSave(
+                        id: 'testid',
+                        nickName: '테스터훈',
+                        gender: _selectGender,
+                        password: '123123',
+                      );
                 },
                 child: const Text('확인'),
               ),

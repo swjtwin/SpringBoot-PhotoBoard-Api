@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     },
-                    child: ImageCell(),
+                    child: const ImageCell(),
                   );
                 },
               ),

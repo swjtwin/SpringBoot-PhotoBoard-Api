@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photoapp/home/repositories/image_repository.dart';
+import 'package:provider/provider.dart';
 // import 'package:photoapp/home/repositories/image_repository.dart';
 // import 'package:photoapp/login/registpage.dart';
 // import 'package:provider/provider.dart';
@@ -7,9 +8,7 @@ import 'package:photoapp/home/repositories/image_repository.dart';
 // import 'package:photoapp/home/repositories/image_repository.dart';
 
 final class LoginPage extends StatefulWidget {
-  const LoginPage({
-    super.key,
-  });
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -18,11 +17,12 @@ final class LoginPage extends StatefulWidget {
 final class _LoginPageState extends State<LoginPage> {
   String _idtext = '';
   String _password = '';
-  final bool _isEmptyText = false;
-  final bool _isEmptyPassword = false;
+  bool _isEmptyText = false;
+  bool _isEmptyPassword = false;
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<ImageRepository>();
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(top: 15.0),
@@ -68,34 +68,37 @@ final class _LoginPageState extends State<LoginPage> {
                   backgroundColor: MaterialStatePropertyAll(
                     Colors.lightBlue[200],
                   ),
-                  padding: const MaterialStatePropertyAll(EdgeInsets.symmetric(
-                    vertical: 15.0,
-                  )),
+                  padding: const MaterialStatePropertyAll(
+                    EdgeInsets.symmetric(
+                      vertical: 15.0,
+                    ),
+                  ),
                 ),
                 onPressed: () {
-                  // if (_idtext.isEmpty) {
-                  //   setState(() {
-                  //     _isEmptyText = true;
-                  //   });
-                  //   return;
-                  // } else if (_password.isEmpty) {
-                  //   setState(() {
-                  //     _isEmptyText = false;
-                  //     _isEmptyPassword = true;
-                  //   });
-                  //   return;
-                  // }
-                  // Navigator.pushNamed(context, '/home');
-                  // 이동하는 route를 새로운 root로 만든다. ↓↓
-                  Navigator.pushReplacementNamed(context, '/home');
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('로그인 되었습니다.'),
-                      duration: Duration(
-                        seconds: 2,
+                  String msg = '';
+                  // 아이디, 비밀번호 칸 비어있는지 확인
+                  if (!_confirmTextEmpty()) return;
+                  final result =
+                      provider.login(id: _idtext, password: _password);
+
+                  result.then((value) {
+                    if (value) {
+                      msg = '로그인 되었습니다.';
+                      // 이동하는 route를 새로운 root로 만든다. ↓↓
+                      Navigator.pushReplacementNamed(context, '/home');
+                    } else {
+                      msg = '회원정보가 다릅니다.';
+                    }
+                    // 스낵바 팝업
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(msg),
+                        duration: const Duration(
+                          seconds: 3,
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  });
                 },
                 child: const Text(
                   '로그인',
@@ -119,13 +122,13 @@ final class _LoginPageState extends State<LoginPage> {
               ),
               child: const Text('회원가입'),
             ),
-            ElevatedButton(
-              onPressed: () async {
-                final image = ImageRepository();
-                var mocdata = await image.fetchData();
-                print(mocdata.title);
-              },
-              child: const Text('Test'),
+            Consumer<ImageRepository>(
+              builder: (_, value, child) => ElevatedButton(
+                onPressed: () async {
+                  await value.fetchData();
+                },
+                child: Text(value.mockData.title),
+              ),
             )
           ],
         ),
@@ -188,5 +191,21 @@ final class _LoginPageState extends State<LoginPage> {
     } else {
       return const SizedBox.shrink();
     }
+  }
+
+  bool _confirmTextEmpty() {
+    if (_idtext.isEmpty) {
+      setState(() {
+        _isEmptyText = true;
+      });
+      return false;
+    } else if (_password.isEmpty) {
+      setState(() {
+        _isEmptyText = false;
+        _isEmptyPassword = true;
+      });
+      return false;
+    }
+    return true;
   }
 }
